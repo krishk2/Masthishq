@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Report - Memory Keeper</title>
+    <style>
+        body {
+            font-family: system-ui, sans-serif;
+            background: #0f172a;
+            color: #f8fafc;
+            text-align: center;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #1e293b;
+            padding: 20px;
+            border-radius: 12px;
+        }
+
+        h1 {
+            color: #8b5cf6;
+        }
+
+        .btn {
+            background: #8b5cf6;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .upload-area {
+            border: 2px dashed #475569;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 20px 0;
+            cursor: pointer;
+        }
+
+        #preview {
+            max-width: 100%;
+            border-radius: 8px;
+            display: none;
+            margin-top: 10px;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            background: #334155;
+            padding: 15px;
+            border-radius: 8px;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Stranger Report</h1>
+        <p>If you found someone who looks lost, take a photo to check if they are in our memory database.</p>
+
+        <input type="file" id="fileInput" accept="image/*" style="display: none" onchange="previewImage(this)">
+        <div class="upload-area" onclick="document.getElementById('fileInput').click()">
+            📸 Tap to Upload Photo
+        </div>
+        <img id="preview" />
+
+        <button class="btn" onclick="submitReport()">Check Database</button>
+
+        <div id="result"></div>
+    </div>
+
+    <script>
+        function previewImage(input) {
+            if (input.files && input.files[0]) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    document.getElementById('preview').src = e.target.result;
+                    document.getElementById('preview').style.display = 'block';
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        async function submitReport() {
+            const input = document.getElementById('fileInput');
+            const resultDiv = document.getElementById('result');
+
+            if (!input.files[0]) {
+                alert("Please select a photo first.");
+                return;
+            }
+
+            resultDiv.style.display = 'block';
+            resultDiv.innerHTML = "Searching...";
+
+            const formData = new FormData();
+            formData.append('file', input.files[0]);
+
+            try {
+                const response = await fetch('/api/v1/recognize/person', {
+                    method: 'POST',
+                    body: formData
+                });
+                const data = await response.json();
+
+                if (data.status === 'identified') {
+                    resultDiv.innerHTML = `
+                        <h2>Identified: ${data.person.name}</h2>
+                        <p>Relation: ${data.person.relation}</p>
+                        <p style="color: #4ade80">Caregiver Notified!</p>
+                    `;
+                } else {
+                    resultDiv.innerHTML = "<p style='color: #f87171'>Person not found in database.</p>";
+                }
+            } catch (error) {
+                console.error(error);
+                resultDiv.innerHTML = "Error connecting to server.";
+            }
+        }
+    </script>
+</body>
+
+</html>
