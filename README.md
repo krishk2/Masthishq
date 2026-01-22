@@ -56,15 +56,13 @@ cp .env.example .env
 **Open `.env` and fill in your keys:**
 ```ini
 # Qdrant (Memory)
-
+QDRANT_MODE=server
 QDRANT_URL=https://xyz.qdrant.tech, QDRANT_API_KEY=your_key
 
 # Groq (AI Model)
 GROQ_API_KEY=gsk_your_groq_api_key_here
 
-# Security
-SECRET_KEY=your_secret_key
-ACCESS_TOKEN_EXPIRE_MINUTES=1440
+
 ```
 
 ### 5. Important: Embeddings & Qdrant Data
