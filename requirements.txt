@@ -17,6 +17,8 @@ openai-whisper
 ultralytics
 opencv-python-headless
 keras_facenet
-tensorflow
+tf-keras
+
+
 
 
