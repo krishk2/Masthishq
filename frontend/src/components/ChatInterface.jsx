@@ -15,7 +15,9 @@ function ChatInterface({
     onEnroll,
     onEnrollObject,
     isTyping,
-    typingStatus
+    typingStatus,
+    captureTrigger,
+    enrollType
 }) {
     const [input, setInput] = useState("");
     const [showCamera, setShowCamera] = useState(false);
@@ -26,6 +28,14 @@ function ChatInterface({
     useEffect(() => {
         endRef.current?.scrollIntoView({ behavior: "smooth" });
     }, [messages, isTyping, showCamera]);
+
+    // Handle External Capture Trigger (e.g. Enrollment)
+    useEffect(() => {
+        if (captureTrigger && captureTrigger > 0) {
+            setCameraMode(enrollType || 'person');
+            setShowCamera(true);
+        }
+    }, [captureTrigger, enrollType]);
 
     const handleSend = () => {
         if (!input.trim()) return;
@@ -141,7 +151,7 @@ function ChatInterface({
                                     <CameraView
                                         isActive={true}
                                         onCapture={handleCameraCapture}
-                                        trigger={0}
+                                        trigger={captureTrigger}
                                         isProcessing={false}
                                     />
                                 </div>

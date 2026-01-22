@@ -328,6 +328,7 @@ async def find_object(background_tasks: BackgroundTasks, file: UploadFile = File
                     "name": found_name, 
                     "notes": found_notes, 
                     "confidence": best.score,
+                    "location": best.payload.get("location", "Unknown"),
                     "image": found_img
                 }
             }

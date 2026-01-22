@@ -47,13 +47,23 @@ export default function CameraView({ onCapture, isProcessing, trigger, isActive 
     const capture = () => {
         if (!videoRef.current || !canvasRef.current) return;
 
+        // Ensure video is playing and has data
+        if (videoRef.current.videoWidth === 0 || videoRef.current.videoHeight === 0) {
+            console.warn("Camera not ready for capture yet.");
+            return;
+        }
+
         const context = canvasRef.current.getContext('2d');
         canvasRef.current.width = videoRef.current.videoWidth;
         canvasRef.current.height = videoRef.current.videoHeight;
         context.drawImage(videoRef.current, 0, 0);
 
         canvasRef.current.toBlob((blob) => {
-            onCapture(blob);
+            if (blob) {
+                onCapture(blob);
+            } else {
+                console.error("Failed to create blob from canvas");
+            }
         }, 'image/jpeg', 0.9);
     };
 

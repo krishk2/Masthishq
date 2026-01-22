@@ -15,6 +15,7 @@ import NavBar from './components/SideNav'; // Imported as NavBar
 
 const API_BASE = "http://localhost:8000/api/v1";
 
+
 function App() {
   const [view, setView] = useState('landing');
   const [mode, setMode] = useState('person');
@@ -308,6 +309,8 @@ function App() {
                 onEnrollObject={() => { setEnrollType('object'); setMode('enroll_ui'); }}
                 isTyping={isProcessing}
                 typingStatus={processingStatus}
+                captureTrigger={captureTrigger}
+                enrollType={enrollType}
               />
             )}
           </div>
