@@ -86,7 +86,7 @@ for Qdrant Cloud, ensure the URL/Key are in `.env`.
 ### Step 2: Start the Backend
 Open a terminal in the root folder (ensure `venv` is active):
 ```bash
-uvicorn app.main:app --reload --port 8000
+venv\Scripts\uvicorn app.main:app --reload --port 8000
 ```
 *The API will be available at `http://localhost:8000`*
 
