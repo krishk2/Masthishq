@@ -18,7 +18,7 @@ Before running the project, ensure you have the following installed:
 ### 1. clone the Repository
 
 ```bash
-https://github.com/krishk2/Masthishq.git
+git clone https://github.com/krishk2/Masthishq.git
 ```
 
 ### 2. Backend Setup (FastAPI)
