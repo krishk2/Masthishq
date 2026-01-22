@@ -8,7 +8,7 @@ Before running the project, ensure you have the following installed:
 
 *   **Python 3.10+**
 *   **Node.js 18+** & **npm**
-*   **Docker** (Optional, for local Qdrant) or a **Qdrant Cloud** API Key.
+*   **Qdrant Cloud** API Key (or local Qdrant instance).
 *   **Groq API Key** (for Llama 3 & Whisper).
 
 ---
