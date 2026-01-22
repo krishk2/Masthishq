@@ -15,5 +15,5 @@ edge-tts
 pygame
 openai-whisper
 ultralytics
-face_recognition
 opencv-python-headless
+
