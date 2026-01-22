@@ -15,10 +15,10 @@ Before running the project, ensure you have the following installed:
 
 ## 🛠️ Installation & Setup
 
-### 1. clone/Unzip the Repository
-Extract the `Convolve_Submission.zip` folder.
+### 1. clone the Repository
+
 ```bash
-cd Convolve
+https://github.com/krishk2/Masthishq.git
 ```
 
 ### 2. Backend Setup (FastAPI)
@@ -82,11 +82,7 @@ If you prefer to start fresh or use your own faces:
 ## ▶️ Running the Application
 
 ### Step 1: Start Qdrant (Vector Database)
-If using local Qdrant with Docker:
-```bash
-docker run -p 6333:6333 qdrant/qdrant
-```
-*If using Qdrant Cloud, ensure the URL/Key are in `.env`.*
+for Qdrant Cloud, ensure the URL/Key are in `.env`.
 
 ### Step 2: Start the Backend
 Open a terminal in the root folder (ensure `venv` is active):
